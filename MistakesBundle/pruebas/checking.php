@@ -3,8 +3,13 @@ namespace Mistakes\MistakesBundle\pruebas;
 
 $xmlprojects = loadprojects();
 $xmlerrors = loaderrors(10);
-resetErrors();
-seterrors();
+resetErrors($xmlprojects);
+setErrors($xmlerrors);
+setProjectname($xmlprojects);
+$tempproj= getProjectname();
+$temperror= getErrors();
+
+
 
 echo '<table border="1">
 <tr>
@@ -13,13 +18,14 @@ echo '<table border="1">
 <th>cont</th>
 
 </tr>';
-foreach($projects as $proj => $cont){
+foreach($temperror as $proj => $cont){
 	echo '<tr>
-	<td>' . $projectsname[(int)$proj] . '</td>
+	<td>' . $tempproj[(int)$proj] . '</td>
 	<td>' . $proj . '</td>
 	<td>' . $cont . '</td>
 
 	</tr>';
 }
-}
+echo '</table>';
+
 
