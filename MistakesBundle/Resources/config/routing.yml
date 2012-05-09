@@ -1,0 +1,3 @@
+MistakesBundle_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: MistakesBundle:Default:index }
