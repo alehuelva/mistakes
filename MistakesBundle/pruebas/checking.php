@@ -1,8 +1,8 @@
 <?php
 namespace Mistakes\MistakesBundle\pruebas;
 
-$xmlprojects = loadprojects();
-$xmlerrors = loaderrors(10);
+$xmlprojects = loadProjects();var_dump($xmlprojects);die();
+$xmlerrors = loadErrors(10);
 resetErrors($xmlprojects);
 setErrors($xmlerrors);
 setProjectname($xmlprojects);
