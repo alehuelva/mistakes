@@ -1,18 +1,21 @@
 <?php 
-
+namespace Mistakes\MistakesBundle\pruebas;
 
 class mistakes {
 	
-	public $projects= array(); //CAMBIAR ESTO no son public
-	public $projectsname = array ();
+	protected $errors= array(); //Array with errors
+	protected $projectsname = array ();
 	
 	
 	public function loadProjects() { // Get projects from xml
+		
+		//$url = "http://kunstmaan.airbrake.io/data_api/v1/projects.xml?auth_token=5047b6b5e6910cafa77422f04d06ae2097bd05ff";
+		//$xmlprojects = simplexml_load_file($url);
 		$projectsfile =file_get_contents("http://kunstmaan.airbrake.io/data_api/v1/projects.xml?auth_token=5047b6b5e6910cafa77422f04d06ae2097bd05ff");
 		$xmlprojects = new SimpleXMLElement($projectsfile);
 		return $xmlprojects;
 	}
-
+	
 	
 	public function loadErrors($pageid=0) { //get errors from xml
 		$errorsfile =file_get_contents("http://kunstmaan.airbrake.io/errors.xml?auth_token=5047b6b5e6910cafa77422f04d06ae2097bd05ff&page=" . $pageid);
@@ -20,41 +23,51 @@ class mistakes {
 		return $xmlerrors;
 	}
 	
-	public function resetErrors($xmlprojects) { //Reset the accounting of errors in the array
+	
+	public function resetErrors($xmlprojects) { //Reset the accounting of errors in the array before to be filled in
 		if ($xmlprojects != NULL){
 			foreach ($xmlprojects->project as $proj) {
-				$projects[(int)$proj->id] = 0;
+				$errors[(int)$proj->id] = 0;
 				$projectsname[(int)$proj->id] = $proj -> name;
 			}
 		} else echo "Error loading projects";
 		
 		//return ?
 		}
+		
+		
+	public function setProjectname($xmlprojects){
+		if ($xmlprojects != NULL){
+			foreach ($xmlprojects->project as $proj) {
+				$projectsname[(int)$proj->id] = $proj -> name;
+			}
+		} else echo "Error loading projects";
+	}
+	
+	
 
-  	public function getErrors($xmlerrors) {
+  	public function setErrors($xmlerrors) {
 			if ($xmlerrors != NULL){
 				foreach ($xmlerrors->group as $group) {
-				$projects[(int)$group -> {'project-id'}]++;
+				$errors[(int)$group -> {'project-id'}]++;
 				}
-			}else echo "Error al cargar proyectos";
+			}else echo "Error loading errors";
   	}
+  	
+  	
  
- 
- 
-echo '<table border="1">
-<tr>
-<th>name</th>
-<th>number</th>
-<th>cont</th>
+  	public function getErrors(){
+  		return $errors;
+  	}
+  	
+  	
+  	
+  	public function getprojectname(){
+  		return $projectsname;
+  	}
+  	
+  	
 
-</tr>';
-foreach($projects as $proj => $cont){
-	echo '<tr>
-	<td>' . $projectsname[(int)$proj] . '</td>
-	<td>' . $proj . '</td>
-	<td>' . $cont . '</td>
-
-	</tr>';
-}
-  }
-}
+ }
+ 
+ 
