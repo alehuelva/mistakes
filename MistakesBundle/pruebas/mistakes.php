@@ -1,7 +1,9 @@
 <?php 
+
 namespace Mistakes\MistakesBundle\pruebas;
 
-class mistakes {
+
+class Mistakes {
 	
 	protected $errors= array(); //Array with errors
 	protected $projectsname = array ();
@@ -27,10 +29,9 @@ class mistakes {
 	public function resetErrors($xmlprojects) { //Reset the accounting of errors in the array before to be filled in
 		if ($xmlprojects != NULL){
 			foreach ($xmlprojects->project as $proj) {
-				$errors[(int)$proj->id] = 0;
-				$projectsname[(int)$proj->id] = $proj -> name;
+				$this->errors[(int)$proj->id] = 0;
 			}
-		} else echo "Error loading projects";
+		} else echo "Error loading errors";
 		
 		//return ?
 		}
@@ -39,7 +40,7 @@ class mistakes {
 	public function setProjectname($xmlprojects){
 		if ($xmlprojects != NULL){
 			foreach ($xmlprojects->project as $proj) {
-				$projectsname[(int)$proj->id] = $proj -> name;
+				$this->projectsname[(int)$proj->id] = (string) $proj -> name;
 			}
 		} else echo "Error loading projects";
 	}
@@ -49,7 +50,7 @@ class mistakes {
   	public function setErrors($xmlerrors) {
 			if ($xmlerrors != NULL){
 				foreach ($xmlerrors->group as $group) {
-				$errors[(int)$group -> {'project-id'}]++;
+				$this->errors[(int)$group -> {'project-id'}]++;
 				}
 			}else echo "Error loading errors";
   	}
@@ -57,17 +58,15 @@ class mistakes {
   	
  
   	public function getErrors(){
-  		return $errors;
+  		return $this->errors;
   	}
   	
   	
   	
-  	public function getprojectname(){
-  		return $projectsname;
+  	public function getProjectname(){
+  		return $this->projectsname;
   	}
   	
   	
 
  }
- 
- 
