@@ -1,7 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}Mistakes Bundle{% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.load("visualization", "1", {packages:["corechart", 'table', 'treemap', 'gauge']});
+            google.load('jquery', '1.6.0');
+        </script>
+    </head>
+
 
 aaaaaaaaaa
 
-{% block title %}Mistakes{% endblock%}
+
 {% block body %}
 
     {% for key, error in errors %}
@@ -9,5 +22,37 @@ aaaaaaaaaa
         <li>{{ key }} : {{ error.name|e }} : {{ error.cont|e }}</li>
     {# {% endfor %}#}
     {% endfor %}
+    
+    <br>
+    <br><br><br>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div id="chart2">&nbsp;</div>
+<script>
+$(function() {
+{{ gchart_column_chart(dataTable2, 'chart2', 800, 500, 'vertical') }} //Medidas y titulo
+});
+</script>
+    <div id="chart3">&nbsp;</div>
+
+<hr/>
+dataTable2
+<div id="chart4">&nbsp;</div>
+<script>
+$(function() {
+{{ gchart_bar_chart(dataTable2, 'chart4', 800, 500, 'horizontal') }}
+});
+</script>
+    
+    
+    a
     
 {% endblock %}

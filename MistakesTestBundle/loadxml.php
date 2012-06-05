@@ -35,6 +35,7 @@ class loadxml{
 				$this->errors[(int)$proj->id] = array();
 				$this->errors[(int)$proj->id]['cont']  = 0;
 				$this->errors[(int)$proj->id]['name']  = (string)$proj->name;
+				
 			} 
 		}else echo "Error loading errors";
 	}
