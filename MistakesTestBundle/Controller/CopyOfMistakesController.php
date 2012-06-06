@@ -19,18 +19,47 @@ class MistakesController extends Controller {
 	 	* @Route("/mistakes", name="BloggerBundle_mistakes")
 		* @Method({"GET"})
 		*/
-		public function indexAction()
+public function indexAction()
 		{
 			$obj=new loadxml();
 			$xmlprojects = $obj -> loadProjects();
 			$obj -> resetErrors($xmlprojects);
 			$page=0;
-			//$xmlerrors = 1;
+			
+			
+			/* Carga errores en array $temperror y esta se guarda en database
+			 $xmlerrors = 1;
 			//while ($xmlerrors) { 
 			$xmlerrors = $obj ->  loadErrors($page);
 			$obj -> setErrors($xmlerrors);
 			//$page++;}
 			$temperror= ($obj -> getErrors());
+			foreach ($temperror as $key => $error) {
+				$errordoctr = new Error();
+				$errordoctr->setAbId($key);
+				$errordoctr->setName($error['name']);
+				$errordoctr->setCont($error['cont']);
+				
+				$em = $this->getDoctrine()->getEntityManager();
+				$em->persist($errordoctr);
+				//return new Response('Created product id '.$errordoctr->getId());
+			}   $em->flush();
+			*/
+
+			
+			
+			//DELETE DATABASE
+			$repository = $this->getDoctrine()
+			->getRepository('MistakesTestBundle:Error');
+			$temperror = $repository->findAll();
+			$em = $this->getDoctrine()->getEntityManager();
+			$query = $em->createQuery(
+					'DELETE MistakesTestBundle:Error'
+			);
+			$errors = $query->getResult();
+			//var_dump($errors);die();
+			//$em->persist($errors);
+			//$em->flush();
 			
 			//$tempproj= ($obj -> getProjectname());
 			
@@ -44,6 +73,8 @@ class MistakesController extends Controller {
 			
 			//return new Response('<html><body>Hello</body></html>');
 		}
+	
+	
 	
 	
 		

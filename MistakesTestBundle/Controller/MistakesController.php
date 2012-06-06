@@ -27,13 +27,17 @@ class MistakesController extends Controller {
 			$xmlprojects = $obj -> loadProjects();
 			$obj -> resetErrors($xmlprojects);
 			$page=0;
-			//$xmlerrors = 1;
+			
+			
+			 //Carga errores en array $temperror y esta se guarda en database
+			 $xmlerrors = 1;
 			//while ($xmlerrors) { 
 			$xmlerrors = $obj ->  loadErrors($page);
 			$obj -> setErrors($xmlerrors);
 			//$page++;}
 			$temperror= ($obj -> getErrors());
-			foreach ($temperror as $key => $error) {
+			//var_dump($temperror);die;
+			/*foreach ($temperror as $key => $error) {
 				$errordoctr = new Error();
 				$errordoctr->setAbId($key);
 				$errordoctr->setName($error['name']);
@@ -44,14 +48,33 @@ class MistakesController extends Controller {
 				//return new Response('Created product id '.$errordoctr->getId());
 			}   $em->flush();
 			
-
+		*/
 			
+			
+			foreach ($temperror as $key => $error){
+			$prueba=0;
+			$em = $this->getDoctrine()->getEntityManager();
+			$prueba = $em->getRepository('MistakesTestBundle:Error')->findByName($error['name']);
+			$conttepm=$prueba->getCont();
+			if(!$prueba){ //CREATE
+				$errordoctr = new Error();
+				$errordoctr->setAbId($key);
+				$errordoctr->setName($error['name']);
+				$errordoctr->setCont($error['cont']);
+				
+				$em = $this->getDoctrine()->getEntityManager();
+				$em->persist($errordoctr);
+				//UPDATE
+			}
+			 elseif ($error['cont'] != $contemp){
+				$prueba->setCont($error['cont']);
+			}
+			}
+			
+			/*DELETE DATABASE
 			$repository = $this->getDoctrine()
 			->getRepository('MistakesTestBundle:Error');
 			$temperror = $repository->findAll();
-			//var_dump($temperror);die();
-			
-/*
 			$em = $this->getDoctrine()->getEntityManager();
 			$query = $em->createQuery(
 					'DELETE MistakesTestBundle:Error'
@@ -61,13 +84,17 @@ class MistakesController extends Controller {
 			//$em->persist($errors);
 			//$em->flush();
 			
-			//$tempproj= ($obj -> getProjectname());
+			
 			
 			*/
+			
+			$repository = $this->getDoctrine()
+			->getRepository('MistakesTestBundle:Error');
+			$temperror = $repository->findAll();
 			 
 			return $this->render('MistakesTestBundle:Mistakes:index.html.twig', array( //rendder the view
 					'errors' => $temperror,
-					//'projects' => $tempproj
+					
 			));
 		
 			
