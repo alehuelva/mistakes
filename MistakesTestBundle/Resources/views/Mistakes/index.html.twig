@@ -19,7 +19,7 @@ aaaaaaaaaa
 
     {% for key, error in errors %}
     {# {% for key, name in projects %} #}
-        <li>{{ key }} : {{ error.name|e }} : {{ error.cont|e }}</li>
+        <li>{{ key }} :  {{ error.abid|e }} : {{ error.name|e }} : {{ error.cont|e }}</li>
     {# {% endfor %}#}
     {% endfor %}
     
@@ -28,7 +28,7 @@ aaaaaaaaaa
     
     
     
-    
+    {# 
     
     
     
@@ -53,6 +53,6 @@ $(function() {
 </script>
     
     
-    a
+    a #}
     
 {% endblock %}

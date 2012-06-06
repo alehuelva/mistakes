@@ -5,8 +5,6 @@ namespace Mistakes\MistakesTestBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Mistakes\MistakesTestBundle\loadxml;
-use Mistakes\MistakesTestBundle\Entity\Error;
-
 
 use SaadTazi\GChartBundle\DataTable;
 use SaadTazi\GChartBundle\Chart\PieChart;
@@ -33,37 +31,10 @@ class MistakesController extends Controller {
 			$obj -> setErrors($xmlerrors);
 			//$page++;}
 			$temperror= ($obj -> getErrors());
-			foreach ($temperror as $key => $error) {
-				$errordoctr = new Error();
-				$errordoctr->setAbId($key);
-				$errordoctr->setName($error['name']);
-				$errordoctr->setCont($error['cont']);
-				
-				$em = $this->getDoctrine()->getEntityManager();
-				$em->persist($errordoctr);
-				//return new Response('Created product id '.$errordoctr->getId());
-			}   $em->flush();
-			
-
-			
-			$repository = $this->getDoctrine()
-			->getRepository('MistakesTestBundle:Error');
-			$temperror = $repository->findAll();
-			//var_dump($temperror);die();
-			
-/*
-			$em = $this->getDoctrine()->getEntityManager();
-			$query = $em->createQuery(
-					'DELETE MistakesTestBundle:Error'
-			);
-			$errors = $query->getResult();
-			//var_dump($errors);die();
-			//$em->persist($errors);
-			//$em->flush();
 			
 			//$tempproj= ($obj -> getProjectname());
 			
-			*/
+			
 			 
 			return $this->render('MistakesTestBundle:Mistakes:index.html.twig', array( //rendder the view
 					'errors' => $temperror,
