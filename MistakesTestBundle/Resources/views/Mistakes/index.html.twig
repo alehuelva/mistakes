@@ -15,20 +15,20 @@
 aaaaaaaaaa
 
 
-{% block body %}
-
-    {% for key, error in errors %}
+{% block body %} 
+{#
+    {% for key, error in errors %} #}
     {# {% for key, name in projects %} #}
-        <li>{{ key }} : {#  {{ error.abid|e }}  :#} {{ error.name|e }} : {{ error.cont|e }}</li>
+      {#  <li>{{ key }} :   {{ error.abid|e }}  : {{ error.name|e }} : {{ error.cont|e }}</li>#}
     {# {% endfor %}#}
-    {% endfor %}
+   {# {% endfor %}#}
     
     <br>
     <br><br><br>
     
     
     
-    {# 
+   
     
     
     
@@ -53,6 +53,6 @@ $(function() {
 </script>
     
     
-    a #}
+    a
     
 {% endblock %}
