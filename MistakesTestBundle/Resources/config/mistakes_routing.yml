@@ -1,0 +1,8 @@
+MistakesTestBundle_homepage:
+    pattern:  /mistakes
+    defaults: { _controller: MistakesTestBundle:Mistakes:index }
+
+    
+MistakesTestBundle_graf:
+    pattern:  /mistakesgraf
+    defaults: { _controller: MistakesTestBundle:Mistakes:indexgraf }

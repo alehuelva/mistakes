@@ -1,0 +1,12 @@
+data{{ id }} = new google.visualization.DataTable({{ data | json_encode | replace({"\"[new Date]": 'new Date', "[new Date]\"": ""}) | raw }});
+
+// Create and draw the visualization.
+chart{{ id }} = new google.visualization.{{ chartType }}(document.getElementById('{{ id }}'));
+chart{{ id }}.draw(data{{ id }}, {{ config | json_encode | raw }});
+
+google.visualization.events.addListener(chart{{ id }}, 'select', ChartCallBackHandler{{ id }});
+
+
+{# chart id es lo que se añade en el evento ese como a seleccionar cuando lo haga #}
+
+
